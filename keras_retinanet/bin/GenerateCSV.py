@@ -90,7 +90,7 @@ train_slices, val_slices, train_bbox, val_bbox = train_test_split(
 
 # write to CSV file
 tqdm.write('Writing csv files...')
-with open('hcc_retinadata_train.csv', mode='w') as file:
+with open('hcc_retinadata_train.csv', mode='w',newline="\n", encoding="utf-8") as file:
     writer = csv.writer(file, delimiter=',', quotechar='"',
                         quoting=csv.QUOTE_MINIMAL)
     for f, coords in tqdm(zip(train_slices, train_bbox), total=len(train_slices)):
@@ -102,7 +102,7 @@ with open('hcc_retinadata_train.csv', mode='w') as file:
             entry = [f] + coords + ['lesion']
             writer.writerow(entry)
 
-with open('hcc_retinadata_val.csv', mode='w') as file:
+with open('hcc_retinadata_val.csv', mode='w',newline="\n", encoding="utf-8") as file:
     writer = csv.writer(file, delimiter=',', quotechar='"',
                         quoting=csv.QUOTE_MINIMAL)
     for f, coords in tqdm(zip(val_slices,val_bbox), total=len(val_slices)):
