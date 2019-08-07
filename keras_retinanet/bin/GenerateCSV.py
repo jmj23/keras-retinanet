@@ -57,7 +57,7 @@ def DisplayImageWithBbox(slice_file, bbox_coords):
     # Display the image
     ax.imshow(im)
     # Create rectangle patches
-    cur_coords = all_bbox_coords[ind]
+    cur_coords = bbox_coords
     if len(cur_coords) == 4:
         cur_coords = [cur_coords]
     for coords in cur_coords:
