@@ -184,7 +184,7 @@ def create_callbacks(model, training_model, prediction_model, validation_generat
                 '{backbone}_{dataset_type}_{{epoch:02d}}.h5'.format(backbone=args.backbone, dataset_type=args.dataset_type)
             ),
             verbose=1,
-            # save_best_only=True,
+            save_best_only=True,
             # monitor="mAP",
             # mode='max'
         )
@@ -351,20 +351,36 @@ def main(args=None):
 
 
 if __name__ == '__main__':
+    seqs = ['Inp','Out','T2f','T1p','T1a','T1v','T1d','Dw1','Dw2']
     args = SimpleNamespace()
-    args.annotations ='C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\bin\\hcc_retinadata.csv'
-    args.backbone = 'resnet50'
-    args.batch_size = 2
-    args.classes = 'C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\bin\\class_mapping.csv'
-    args.compute_val_loss = False
-    args.config = None
     args.dataset_type = 'csv'
-    args.epochs = 50
-    args.evaluation = True
+    args.annotations ='C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\hcc_retinadata_train.csv'
+    args.val_annotations = 'C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\hcc_retinadata_val.csv'
+    args.backbone = 'resnet50'
+    args.classes = 'C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\bin\\class_mapping.csv'
+    args.snapshot = None
+    args.snapshots = True
+    args.weights = None
+    args.imagenet_weights = True
     args.freeze_backbone = False
-    args.gpu = None
+    args.sequences = seqs[3:6]
+    args.numSeq = len(args.sequences)
     args.image_min_side = 384
     args.image_max_side = 384
-    args.sequences = ['T1p','T1a','T1v']
-    args.numSeq = len(args.sequences)
+    args.batch_size = 2
+    args.lr = 1e-5
+    args.epochs = 50
+    args.steps = 10000
+    args.compute_val_loss = True
+    args.config = None
+    args.use_multiprocessing = True
+    args.workers = 8
+    args.max_queue_size = 8
+    args.evaluation = True
+    args.weighted_average = False
+    args.random_transform = True
+    args.gpu = None
+    args.multi_gpu = False
+    args.tensorboard_dir = './tensorboard_logs'
+    args.snapshot_path = './snapshots'
     main(args)
