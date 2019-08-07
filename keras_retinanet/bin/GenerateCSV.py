@@ -21,8 +21,6 @@ bbox_directory = join('Z:\\hcc_ml', 'BoundingBoxes')
 all_bbox_xmls = natsorted(glob(join(bbox_directory, '*.xml')))
 
 # generate slice file names from bbox filename
-
-
 def get_slice_paths(bbox_file):
     froot = bbox_file[-11:-4]
     fname = 'S' + froot + '_{}.png'
@@ -46,9 +44,7 @@ def checkforobject(bbox_file):
         cur_bbox = xmltodict.parse(fd.read())
     return not 'object' in cur_bbox['annotation'].keys()
 
-# Display an image with bounding
-
-
+# Display an image with bounding box
 def DisplayImageWithBbox(slice_file, bbox_coords):
     # display an image
     im = np.flip(np.array(Image.open(slice_file), dtype=np.uint8), axis=0)
