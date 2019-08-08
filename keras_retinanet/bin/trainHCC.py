@@ -316,7 +316,7 @@ def main(args=None):
         )
 
     # print model summary
-    print(model.summary())
+    # print(model.summary())
 
     # this lets the generator compute backbone layer shapes using the actual backbone model
     if 'vgg' in args.backbone or 'densenet' in args.backbone:
@@ -370,12 +370,12 @@ if __name__ == '__main__':
     args.batch_size = 2
     args.lr = 1e-5
     args.epochs = 50
-    args.steps = 10000
+    args.steps = 1000
     args.compute_val_loss = True
     args.config = None
-    args.use_multiprocessing = True
-    args.workers = 8
-    args.max_queue_size = 8
+    args.multiprocessing = False
+    args.workers = 1
+    args.max_queue_size = 1
     args.evaluation = True
     args.weighted_average = False
     args.random_transform = True
