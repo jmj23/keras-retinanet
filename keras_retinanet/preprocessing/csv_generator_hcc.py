@@ -215,7 +215,8 @@ class CSVGenerator(Generator):
     def load_image(self, image_index):
         image_paths = [self.image_path(image_index).format(s) for s in self.seqs]
         image_arrays = [np.asarray(Image.open(path).convert('L')) for path in image_paths]
-        return np.stack(image_arrays,axis=-1)
+        imstack = np.stack(image_arrays,axis=-1)
+        return np.flip(imstack,axis=0)
 
     def load_annotations(self, image_index):
         """ Load annotations for an image_index.
