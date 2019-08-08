@@ -47,7 +47,8 @@ def checkforobject(bbox_file):
 # Display an image with bounding box
 def DisplayImageWithBbox(slice_file, bbox_coords):
     # display an image
-    im = np.flip(np.array(Image.open(slice_file), dtype=np.uint8), axis=0)
+    im = np.array(Image.open(slice_file), dtype=np.uint8)
+    im = np.flip(im,axis=0)
     # Create figure and axes
     _, ax = plt.subplots(1)
     # Display the image
@@ -74,8 +75,8 @@ tqdm.write('Loading all bounding boxes...')
 all_bbox_coords = [get_bbox_coords(f) for f in tqdm(all_bbox_xmls)]
 
 # Display a sample image
-# ind = 803
-# DisplayImageWithBbox(all_slice_files[ind].format(seqs[4]),all_bbox_coords[ind])
+ind = 803
+DisplayImageWithBbox(all_slice_files[ind].format(seqs[4]),all_bbox_coords[ind])
 
 # split into train/validation
 seed = 1
