@@ -352,10 +352,11 @@ def main(args=None):
 
 if __name__ == '__main__':
     seqs = ['Inp','Out','T2f','T1p','T1a','T1v','T1d','Dw1','Dw2']
+    fold = 0
     args = SimpleNamespace()
     args.dataset_type = 'csv'
-    args.annotations ='C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\hcc_retinadata_train.csv'
-    args.val_annotations = 'C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\hcc_retinadata_val.csv'
+    args.annotations ='C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\hcc_retinadata_train_fold{}.csv'.format(fold)
+    args.val_annotations = 'C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\hcc_retinadata_val_fold{}.csv'.format(fold)
     args.backbone = 'resnet50'
     args.classes = 'C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\bin\\class_mapping.csv'
     args.snapshot = None
@@ -382,5 +383,5 @@ if __name__ == '__main__':
     args.gpu = None
     args.multi_gpu = False
     args.tensorboard_dir = './tensorboard_logs'
-    args.snapshot_path = './snapshots'
+    args.snapshot_path = './snapshots_fold{}'.format(fold)
     main(args)
