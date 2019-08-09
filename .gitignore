@@ -11,3 +11,5 @@ keras_retinanet/utils/compute_overlap.cp37-win_amd64.pyd
 keras_retinanet/snapshots/*
 keras_retinanet/tensorboard_logs/*
 examples/.ipynb_checkpoints/*
+OutputImages/*
+keras_retinanet/bin/.ipynb_checkpoints/*
