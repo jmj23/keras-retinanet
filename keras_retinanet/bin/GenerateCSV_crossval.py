@@ -83,11 +83,11 @@ rng = np.random.RandomState(seed=1) # pylint: disable=no-member
 kf = KFold(n_splits=5,random_state=rng)
 
 # run cross validation loop
-for fold, (train_index, val_index) in enumerate(tqdm(kf.split(X))):
-    train_slices = all_slice_files[train_index]
-    val_slices = all_slice_files[val_index]
-    train_bbox = all_bbox_coords[train_index]
-    val_bbox = all_bbox_coords[val_index]
+for fold, (train_index, val_index) in enumerate(tqdm(kf.split(all_slice_files))):
+    train_slices = [all_slice_files[i] for i in train_index]
+    val_slices = [all_slice_files[i] for i in val_index]
+    train_bbox = [all_bbox_coords[i] for i in train_index]
+    val_bbox = [all_bbox_coords[i] for i in val_index]
 
     # write to CSV file
     tqdm.write('Writing csv files...')
