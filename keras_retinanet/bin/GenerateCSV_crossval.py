@@ -14,8 +14,7 @@ from tqdm.auto import tqdm
 
 # sequence suffixes
 seqs = ['Inp', 'Out', 'T2f', 'T1p', 'T1a', 'T1v', 'T1d', 'Dw1', 'Dw2']
-
-slice_directory = join('Z:\\hcc_ml', 'Slices', 'Positive')
+slice_directory = join('D:\\jmj136', 'HCCdata', 'Positive')
 bbox_directory = join('Z:\\hcc_ml', 'BoundingBoxes')
 
 all_bbox_xmls = natsorted(glob(join(bbox_directory, '*.xml')))
