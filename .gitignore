@@ -14,3 +14,5 @@ examples/.ipynb_checkpoints/*
 OutputImages/*
 keras_retinanet/bin/.ipynb_checkpoints/*
 *.h5
+*checkpoint.ipynb
+tensorboard_logs/*
