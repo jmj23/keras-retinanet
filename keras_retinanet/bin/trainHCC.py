@@ -20,10 +20,12 @@ import os
 import sys
 import warnings
 from types import SimpleNamespace
+from .CalculateStats import CalculateStatsOnFold
 
 import keras
 import keras.preprocessing.image
 import tensorflow as tf
+from glob import glob
 
 # Allow relative imports when being executed as script.
 if __name__ == "__main__" and __package__ is None or __package__ is '':
@@ -57,6 +59,13 @@ def makedirs(path):
         if not os.path.isdir(path):
             raise
 
+def RenameWeights(directory,new_file_name):
+    # Rename most recent (best) weights
+    h5files = glob(os.path.join(directory,'*.h5'))
+    load_file = max(h5files, key=os.path.getctime)
+    os.rename(load_file, new_file_name)
+    print('Renamed weights file {} to {}'.format(
+        load_file, new_file_name))
 
 def get_session():
     """ Construct a modified tf session.
@@ -341,7 +350,7 @@ def main(args=None):
         generator=train_generator,
         steps_per_epoch=args.steps,
         epochs=args.epochs,
-        verbose=1,
+        verbose=args.verbose,
         callbacks=callbacks,
         workers=args.workers,
         use_multiprocessing=args.multiprocessing,
@@ -352,11 +361,8 @@ def main(args=None):
 
 if __name__ == '__main__':
     seqs = ['Inp','Out','T2f','T1p','T1a','T1v','T1d','Dw1','Dw2']
-    fold = 0
     args = SimpleNamespace()
     args.dataset_type = 'csv'
-    args.annotations ='C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\hcc_retinadata_train_fold{}.csv'.format(fold)
-    args.val_annotations = 'C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\hcc_retinadata_val_fold{}.csv'.format(fold)
     args.backbone = 'resnet50'
     args.classes = 'C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\bin\\class_mapping.csv'
     args.snapshot = None
@@ -374,6 +380,7 @@ if __name__ == '__main__':
     args.steps = 1000
     args.compute_val_loss = True
     args.config = None
+    args.verbose = 1
     args.multiprocessing = False
     args.workers = 1
     args.max_queue_size = 1
@@ -383,5 +390,11 @@ if __name__ == '__main__':
     args.gpu = None
     args.multi_gpu = False
     args.tensorboard_dir = './tensorboard_logs'
-    args.snapshot_path = './snapshots_fold{}'.format(fold)
-    main(args)
+    
+    for fold in range(5):
+        args.annotations ='C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\hcc_retinadata_train_fold{}.csv'.format(fold)
+        args.val_annotations = 'C:\\Users\\jmj136.UWHIS\\Documents\\keras-retinanet\\keras_retinanet\\hcc_retinadata_val_fold{}.csv'.format(fold)
+        args.snapshot_path = './snapshots_fold{}'.format(fold)
+
+        main(args)
+        RenameWeights(args.snapshot_path,os.path.join(args.snapshot_path,'best_weights.h5'))
